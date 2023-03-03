@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Transport<T extends Driver> {
 
@@ -99,9 +100,23 @@ public abstract class Transport<T extends Driver> {
         return "Ремонт проведем";
     }
 
+
     @Override
     public String toString () {
         return " " + make + " " + model + " объем двигателя " + engineCapacity + "механик" + " " + mechanic;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transport<?> transport = (Transport<?>) o;
+        return Double.compare(transport.engineCapacity, engineCapacity) == 0 && make.equals(transport.make) && model.equals(transport.model) && driver.equals(transport.driver) && mechanic.equals(transport.mechanic);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mechanic);
     }
 }
 
